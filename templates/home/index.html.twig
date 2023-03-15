@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<main class="container-lg mt-5 text-center">
+		<form class="d-flex mb-5" role="search">
+			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ...">
+			<button class="btn btn-primary" type="submit">Rechercher</button>
+		</form>
+		<h1 class="mt-5">Bienvenue sur Event Time</h1>
+		<button type="button" class="btn btn-primary mt-5">
+			Voir la lsite des événements
+		</button>
+	</main>
+{% endblock %}
