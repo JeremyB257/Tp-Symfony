@@ -25,4 +25,19 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Route('/evenement/nouveau', name: 'event.create')]
+    public function create(): Response
+    {
+        return $this->render('event/create.html.twig', [
+            'controller_name' => 'EventController',
+        ]);
+    }
+
+    #[Route('/evenement/{id}', name: 'event.show')]
+    public function show(Event $event): Response
+    {
+        return $this->render('event/show.html.twig', [
+            'controller_name' => 'EventController',
+        ]);
+    }
 }
