@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Form\EventType;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,18 +28,34 @@ class EventController extends AbstractController
     }
 
     #[Route('/evenement/nouveau', name: 'event.create')]
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
+        $event = new Event();
+        $form = $this->createForm(EventType::class, $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($event);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre Event à été créer avec succès !'
+            );
+        }
+
         return $this->render('event/create.html.twig', [
-            'controller_name' => 'EventController',
+            'form' => $form,
         ]);
     }
 
     #[Route('/evenement/{id}', name: 'event.show')]
     public function show(Event $event): Response
     {
+
         return $this->render('event/show.html.twig', [
-            'controller_name' => 'EventController',
+            'event' => $event
         ]);
     }
 }
