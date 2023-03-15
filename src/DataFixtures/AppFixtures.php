@@ -16,14 +16,14 @@ class AppFixtures extends Fixture
 
         //add Event
         for ($i = 0; $i < 20; $i++) {
-            $product = new Event();
-            $product->setTitle('concert' . $i)
+            $event = new Event();
+            $event->setTitle('concert' . $i)
                 ->setDescription($faker->text())
-                ->setStartDate($faker->dateTimeBetween('now', '+15 jours'))
-                ->setEndDate($faker->dateTimeBetween('+16jours', '+30 jours'))
+                ->setStartDate($faker->dateTimeBetween('now', '+15 days'))
+                ->setEndDate($faker->dateTimeBetween('+16 days', '+30 days'))
                 ->setPrice(rand(0, 1) == 1 ? rand(10, 50) : null);
 
-            $manager->persist($product);
+            $manager->persist($event);
         }
 
         $manager->flush();
