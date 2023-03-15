@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -15,18 +16,28 @@ class Event
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan('now')]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Expression(
+        expression: "this.startDate <= this.endDate",
+        message: 'La date de fin doit etre superieur a la date de debut'
+    )]
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(10)]
+    #[Assert\LessThanOrEqual(50)]
     private ?int $price = null;
 
     #[ORM\Column]
@@ -35,6 +46,11 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;
