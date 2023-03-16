@@ -19,10 +19,12 @@ class EventType extends AbstractType
             ->add('description')
             ->add('startDate', DateTimeType::class, [
                 'widget' => 'choice',
+                'input' => 'datetime',
                 'years' => range(2023, 2030)
             ])
             ->add('endDate', DateTimeType::class, [
                 'widget' => 'choice',
+                'input' => 'datetime',
                 'years' => range(2023, 2030)
             ])
             ->add('price', MoneyType::class, [

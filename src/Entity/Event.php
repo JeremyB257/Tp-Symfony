@@ -30,7 +30,7 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\Expression(
-        expression: "this.startDate <= this.endDate",
+        expression: "this.getStartDate() <= this.getEndDate()",
         message: 'La date de fin doit etre superieur a la date de debut'
     )]
     private ?\DateTimeInterface $endDate = null;
