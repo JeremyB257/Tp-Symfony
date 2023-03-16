@@ -19,7 +19,7 @@ class EventController extends AbstractController
     {
         $eventsCome = count($repository->findEventCome());
         $events = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findBy([], ['endDate' => 'ASC']),
             $request->query->getInt('page', 1),
             10
         );
