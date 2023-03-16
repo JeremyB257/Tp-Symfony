@@ -67,6 +67,8 @@ class EventController extends AbstractController
     #[Route('/evenement/join/{id}', name: 'event.join')]
     public function join(Event $event): Response
     {
+
+        /* @todo add mailer */
         $this->addFlash(
             'success',
             'Un email à été envoyer a l\'administrateur de l\'evenement'
