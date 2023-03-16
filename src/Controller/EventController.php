@@ -17,6 +17,7 @@ class EventController extends AbstractController
     #[Route('/evenement', name: 'event.index')]
     public function index(EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+
         $events = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1),
@@ -44,6 +45,7 @@ class EventController extends AbstractController
                 'success',
                 'Votre Event à été créer avec succès !'
             );
+            return $this->redirectToRoute('event.index');
         }
 
         return $this->render('event/create.html.twig', [
@@ -59,5 +61,17 @@ class EventController extends AbstractController
         return $this->render('event/show.html.twig', [
             'event' => $event
         ]);
+    }
+
+
+    #[Route('/evenement/join/{id}', name: 'event.join')]
+    public function join(Event $event): Response
+    {
+        $this->addFlash(
+            'success',
+            'Un email à été envoyer a l\'administrateur de l\'evenement'
+        );
+
+        return $this->redirectToRoute('event.index');
     }
 }

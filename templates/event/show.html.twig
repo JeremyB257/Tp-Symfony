@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block body %}
-	<h2>
-		{{event.title}}
-	</h2>
+	<main class="container-lg">
+		<h2>
+			{{event.title}}
+		</h2>
+		<p>{{event.description}}</p>
+		<a class="btn btn-outline-primary {{ event.endDate < date() ? 'disabled' : ''}}" href="{{path('event.join', {id: event.id})}}">Rejoindre un Event
+		</a>
+	</main>
 {% endblock %}

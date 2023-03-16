@@ -7,7 +7,11 @@
 
 {% block body %}
 	<main class="container-lg mt-4 text-center">
-
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success mt-2">
+				{{message}}
+			</div>
+		{% endfor %}
 		<form class="d-flex mb-5" role="search">
 			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ...">
 			<button class="btn btn-primary" type="submit">Rechercher</button>
