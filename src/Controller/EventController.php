@@ -36,6 +36,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $manager->persist($event);
             $manager->flush();
 
@@ -53,6 +54,7 @@ class EventController extends AbstractController
     #[Route('/evenement/{id}', name: 'event.show')]
     public function show(Event $event): Response
     {
+
 
         return $this->render('event/show.html.twig', [
             'event' => $event
