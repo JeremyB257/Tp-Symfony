@@ -14,7 +14,8 @@
 		</form>
 
 		<h1>Evenement</h1>
-		<p>3 Evenement à venir</p>
+		<p>{{ events.getTotalItemCount  }}
+			Evenement à venir</p>
 		<div class="row row-cols-1 row-cols-2 row-cols-md-4 g-4">
 			{% for event in events %}
 
@@ -31,7 +32,15 @@
 							</p>
 
 							<a href="{{path('event.show', {id: event.id})}}" class="btn btn-primary">Voir</a>
-							<span class="badge text-bg-success">Futur</span>
+							{% if date(event.startDate) < date() and date(event.endDate) > date() %}
+								<span class="badge text-bg-warning">En Cours</span>
+							{% endif %}
+							{% if date(event.endDate) < date()  %}
+								<span class="badge text-bg-danger">Finis</span>
+							{% endif %}
+							{% if date(event.startDate) > date()  %}
+								<span class="badge text-bg-success">Futur</span>
+							{% endif %}
 						</div>
 					</div>
 				</div>
