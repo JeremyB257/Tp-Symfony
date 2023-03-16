@@ -26,11 +26,7 @@ class EventController extends AbstractController
             10
         );
         $eventsCome = count($repository->findEventCome());
-        /*      $events = $paginator->paginate(
-            $repository->findBy([], ['endDate' => 'ASC']),
-            $request->query->getInt('page', 1),
-            10
-        ); */
+
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
