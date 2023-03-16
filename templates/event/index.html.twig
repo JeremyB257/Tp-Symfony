@@ -13,7 +13,7 @@
 			</div>
 		{% endfor %}
 		<form class="d-flex mb-5" role="search">
-			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ...">
+			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ..." value="{{app.request.get('search')}}">
 			<button class="btn btn-primary" type="submit">Rechercher</button>
 		</form>
 

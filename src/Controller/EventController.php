@@ -17,12 +17,20 @@ class EventController extends AbstractController
     #[Route('/evenement', name: 'event.index')]
     public function index(EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $eventsCome = count($repository->findEventCome());
+
+        $search = $request->get('search');
+
         $events = $paginator->paginate(
-            $repository->findBy([], ['endDate' => 'ASC']),
+            $repository->findEventByName($search),
             $request->query->getInt('page', 1),
             10
         );
+        $eventsCome = count($repository->findEventCome());
+        /*      $events = $paginator->paginate(
+            $repository->findBy([], ['endDate' => 'ASC']),
+            $request->query->getInt('page', 1),
+            10
+        ); */
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
