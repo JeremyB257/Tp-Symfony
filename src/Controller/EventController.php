@@ -8,6 +8,7 @@ use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -46,7 +47,15 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //upload
+            /** @var UploadedFile */
+            $imgFile = $form->get('imgFile')->getData();
+            if ($imgFile) {
+                $fileName = uniqid() . '.' . $imgFile->guessExtension();
+                $imgFile->move($this->getParameter('event_uploads'), $fileName);
+                //stocker le nom du fichier dans la BDD
+                $event->setImg($fileName);
+            }
             $manager->persist($event);
             $manager->flush();
 

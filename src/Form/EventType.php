@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class EventType extends AbstractType
 {
@@ -36,9 +37,13 @@ class EventType extends AbstractType
                 'divisor' => 100,
                 'label' => 'Prix(facultatif)'
             ])
-            ->add('img', FileType::class, [
+            ->add('imgFile', FileType::class, [
                 'required' => false,
-                'label' => 'Image'
+                'label' => 'Image',
+                'mapped' => false,
+                'constraints' => [
+                    new File(maxSize: '1024k', mimeTypes: ['image/jpg', 'image/jpeg', 'image/png']),
+                ],
             ]);
     }
 
