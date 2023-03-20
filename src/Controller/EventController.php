@@ -78,15 +78,15 @@ class EventController extends AbstractController
     {
 
         $email = (new Email())
-            ->from('hello@example.com')
-            ->to('you@example.com')
+            ->from('admin@eventime.com')
+            ->to('admin@eventime.com', 'utilisateur@gmail.com')
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->subject('Une personne souhaite rejoindre un evenement')
+            ->text('Evenement' . $event->getTitle())
+            ->html('<p>Evenement' . $event->getTitle() . '</p>');
 
         $mailer->send($email);
 
