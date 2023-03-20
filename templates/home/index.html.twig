@@ -7,7 +7,7 @@
 
 {% block body %}
 	<main class="container-lg mt-5 text-center">
-		<form class="d-flex mb-5" role="search">
+		<form action="{{path('event.index')}}" class="d-flex mb-5" role="search">
 			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ...">
 			<button class="btn btn-primary" type="submit">Rechercher</button>
 		</form>
