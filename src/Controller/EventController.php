@@ -10,6 +10,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EventController extends AbstractController
@@ -38,6 +40,7 @@ class EventController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $event = new Event();
+        $event->setStartDate(new \DateTime())->setEndDate(new \DateTime());
         $form = $this->createForm(EventType::class, $event);
 
         $form->handleRequest($request);
@@ -71,10 +74,23 @@ class EventController extends AbstractController
 
 
     #[Route('/evenement/join/{id}', name: 'event.join')]
-    public function join(Event $event): Response
+    public function join(Event $event, MailerInterface $mailer): Response
     {
 
-        /* @todo add mailer */
+        $email = (new Email())
+            ->from('hello@example.com')
+            ->to('you@example.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
+
+
         $this->addFlash(
             'success',
             'Un email à été envoyer a l\'administrateur de l\'evenement'

@@ -15,23 +15,30 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', options: [
+                'label' => 'Titre'
+            ])
             ->add('description')
             ->add('startDate', DateTimeType::class, [
                 'widget' => 'choice',
                 'input' => 'datetime',
-                'years' => range(2023, 2030)
+                'years' => range(2023, 2030),
+                'label' => 'Date de debut'
             ])
             ->add('endDate', DateTimeType::class, [
                 'widget' => 'choice',
                 'input' => 'datetime',
-                'years' => range(2023, 2030)
+                'years' => range(2023, 2030),
+                'label' => 'Date de fin'
             ])
             ->add('price', MoneyType::class, [
-                'required' => false
+                'required' => false,
+                'divisor' => 100,
+                'label' => 'Prix(facultatif)'
             ])
             ->add('img', FileType::class, [
-                'required' => false
+                'required' => false,
+                'label' => 'Image'
             ]);
     }
 

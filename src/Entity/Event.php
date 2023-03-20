@@ -36,8 +36,7 @@ class Event
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\GreaterThanOrEqual(10)]
-    #[Assert\LessThanOrEqual(50)]
+    #[Assert\Range(min: 1000, max: 5000, notInRangeMessage: 'Cette valeur doit etre comprise entre 10 et 50')]
     private ?int $price = null;
 
     #[ORM\Column]
