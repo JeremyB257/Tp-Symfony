@@ -13,7 +13,7 @@
 			</div>
 		{% endfor %}
 		<form class="d-flex mb-5" role="search">
-			<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Recherche ..." value="{{app.request.get('search')}}">
+			<input class="form-control me-2" type="search" name="search" placeholder="Recherche" aria-label="Recherche ..." value="{{app.request.get('search')}}">
 			<button class="btn btn-primary" type="submit">Rechercher</button>
 		</form>
 
@@ -27,7 +27,7 @@
 				<div class="col">
 					<div class="card">
 						{% if event.img %}
-							<img src="{{ asset('uploads/events/' ~ event.img)}} " class="card-img-top" alt="{{event.title}}">
+							<img src="{{ asset('uploads/events/' ~ event.img)}}" style="height: 300px; object-fit: cover;" class="card-img-top" alt="{{event.title}}">
 						{% endif %}
 						<div class="card-body">
 							<h5 class="card-title">{{event.title}}</h5>
